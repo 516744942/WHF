@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			nav {
+				width: 100px;
+				height: 100px;
+				background: blue;
+				position: relative;
+				left: 0px;
+				transition: 2s;
+			}
+			span {
+				display: block;
+				width: 100px;
+				height: 100px;
+				background: blue;
+				position: relative;
+				left: 0px;
+				transition: 2s;
+			}
+			
+			.move{
+				left: 360px;
+				
+			}
+			.go{
+				left: 720px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div style="height: 1000px;"></div>
+		<nav id="box">
+			动画
+		</nav>
+		<span id="box2">
+			动
+		</span>
+		<div style="height: 500px;"></div>
+
+		<script>
+			function Play(id,active){
+				this.ele = document.querySelector(id);
+				this.active = active;
+			}
+			Play.prototype.playto = function(){	
+				var o = this;
+				addEvent(window,'scroll',function(){
+					var y = getY(o.ele);   //求元素y坐标
+					console.log(y);
+					var h = client().height; //window窗口高度
+					var sTop = (getScrollTop()).top; //滚动上去的高度
+						if(y>sTop && (y <(sTop+h))){
+							
+							o.ele.className = o.active
+						}else{
+							//console.log("不不在当前")
+						}
+				});			
+			}
+			var box = new Play(' #box','move');
+				box.playto();
+			var box2 = new Play(' #box2','go');
+				box2.playto();
+			function getScrollTop() {
+				var sLeft = document.documentElement.scrollLeft == 0 ? document.body.scrollLeft : document.documentElement.scrollLeft;
+				var sTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+				return {
+					top: sTop,
+					left: sLeft
+				}
+			}
+
+			function getY(obj) {
+				var y = 0;
+				while(obj.tagName != "BODY") {
+					y += obj.offsetTop + obj.offsetParent.clientTop;
+					obj = obj.offsetParent;
+				}
+				return y;
+			}
+			
+			function client() {
+				if(window.innerHeight !== undefined) {
+					return {
+						"width": window.innerWidth,
+						"height": window.innerHeight
+					}
+
+				} else if(document.compatMode === "CSS1Compat") {
+					return {
+						"width": document.documentElement.clientWidth,
+						"height": document.documentElement.clientHeight
+					}
+
+				} else {
+					return {
+						"width": document.body.clientWidth,
+						"height": document.body.clientHeight
+					}
+				}
+			};
+			//事件绑定
+			function addEvent(obj,type,fn){
+				if(typeof obj.addEventListener!='undefined'){
+					obj.addEventListener(type,fn,false);
+				}else{
+					obj.attachEvent('on'+type,fn);
+				}
+			}
+		</script>
+	</body>
+
+</html>

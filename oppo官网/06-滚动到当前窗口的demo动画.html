@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			nav {
+				width: 100px;
+				height: 100px;
+				background: blue;
+				position: relative;
+				left: 0px;
+				transition: 2s;
+			}
+				span {
+					display: block;
+				width: 100px;
+				height: 100px;
+				background: blue;
+				position: relative;
+				left: 0px;
+				transition: 2s;
+			}
+			
+			.move{
+				left: 360px;
+				
+			}
+			.go{
+				left: 720px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="startphone">
+			<div class="startphone-title">
+				<img src="img/class-title.png"/>
+			</div>
+			<div class="fourphone">
+				<ul class="startphone-ul">
+					<li>
+						<div class="start-shadow">
+							<img src="img/class1.jpg" alt="" /> 
+						</div>
+						<h2>PHP基础</h2>
+						<p>包教会用HTML/CSS/JS做网站前后台页面</p>
+						<p>
+							<span>￥1680</span><span>立即报名</span><em> </em>
+						</p>
+					</li>
+						<li>
+						<div class="start-shadow">
+							<img src="img/class2.jpg" alt="" /> 
+						</div>
+						<h2>PHP基础</h2>
+						<p>包教会用HTML/CSS/JS做网站前后台页面</p>
+						<p>
+							<span>￥1680</span><span>立即报名</span><em> </em>
+						</p>
+					</li>	<li>
+						<div class="start-shadow">
+							<img src="img/class3.jpg" alt="" /> 
+						</div>
+						<h2>PHP基础</h2>
+						<p>包教会用HTML/CSS/JS做网站前后台页面</p>
+						<p>
+							<span>￥1680</span><span>立即报名</span><em> </em>
+						</p>
+					</li>	<li>
+						<div class="start-shadow">
+							<img src="img/class4.jpg" alt="" /> 
+						</div>
+						<h2>PHP基础</h2>
+						<p>包教会用HTML/CSS/JS做网站前后台页面</p>
+						<p>
+							<span>￥1680</span><span>立即报名</span><em> </em>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div style="height: 1000px;"></div>
+		<nav id="box">
+			动画
+		</nav>
+		<span id="box2">
+			动
+		</span>
+		<div style="height: 500px;"></div>
+
+		<script>
+			var box = document.getElementById("box");
+			var box2 = document.getElementById("box2");
+			
+			
+			function play(ele,active){
+				this.ele    = ele;
+				this.active = active
+				this.playto = function(){
+				var o = this;
+			window.onscroll = function(){
+				var y = getY(o.ele);   //求元素y坐标
+				console.log(y);
+				var h = client().height; //window窗口高度
+				var sTop = (getScrollTop()).top; //滚动上去的高度
+					if(y>sTop && (y <(sTop+h))){
+//						o.active();
+						o.ele.className = active
+					}else{
+//					console.log("不不在当前")
+					}
+				
+				}
+			}
+			}
+			var m1 = new play(box,"go").playto();
+				
+			var m2 = new play(box2,"move").playto();
+			function getScrollTop() {
+				var sLeft = document.documentElement.scrollLeft == 0 ? document.body.scrollLeft : document.documentElement.scrollLeft;
+				var sTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+				return {
+					top: sTop,
+					left: sLeft
+				}
+			}
+			function getY(obj) {
+				var y = 0;
+				while(obj.tagName != "BODY") {
+					y += obj.offsetTop + obj.offsetParent.clientTop;
+					obj = obj.offsetParent;
+				}
+				return y;
+			}
+			
+			(function() {
+				if(window.innerHeight !== undefined) {
+					client = function() {
+						return {
+							"width": window.innerWidth,
+							"height": window.innerHeight
+						}
+					}
+				} else if(document.compatMode === "CSS1Compat") {
+					client = function() {
+						return {
+							"width": document.documentElement.clientWidth,
+							"height": document.documentElement.clientHeight
+						}
+					}
+
+				} else {
+					client = function() {
+						return {
+							"width": document.body.clientWidth,
+							"height": document.body.clientHeight
+						}
+					}
+				}
+			}());
+		</script>
+	</body>
+
+</html>

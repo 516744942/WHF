@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				height: 1500px;
+			}
+			div {
+				width: 100%;
+				height: 600px;
+				background: blue;
+				position: relative;
+
+			}
+			
+			* {
+				margin: 0px;
+				padding: 0px;
+				list-style: none;
+			}
+			
+			ul {
+				width: 800px;
+				height: 120px;
+				position: relative;
+				left:0;
+				top: 300px;
+				border: 2px solid blue;
+				transition: 2s;
+			}
+			.move{
+				left: 360px;
+			}
+			ul li {
+				width: 100px;
+				height: 100px;
+				background: green;
+				margin: 10px;
+				float: left;
+				position: relative;
+				top: 120px;
+			}
+		</style>
+
+		<script src="js/tool.js"></script>
+	</head>
+
+	<body>
+
+		<ul id="box">
+			<li>AA</li>
+			<li>BB</li>
+			<li>CC</li>
+			<li>DD</li>
+			<li>EE</li>
+		</ul>
+
+		<script>
+			var lis = document.getElementsByTagName("li");
+			var ul  =document.getElementById("ul");
+			var m1,timer = null;
+			
+			
+
+			var box = document.getElementById("box");
+			function moveAutoplay(obj){
+			window.onscroll = function(){
+				var y = getY(obj);   //求元素y坐标
+				console.log(y);
+				var h = client().height; //window窗口高度
+				var sTop = (getScrollTop()).top; //滚动上去的高度
+				
+						if(y>sTop && (y <(sTop+h))){
+							function M(i) {
+						m1 = new Move(lis[i],0,"top").stop().animation();
+//						m1.animation();
+					}
+
+					for(var i = 0; i < lis.length; i++) {
+						setTimeout(M, i * 500, i);
+					}
+					lis[3].onmouseenter =function(){				
+					m2 = new Move(this,-10,"top").stop().animation();			
+			}
+						lis[3].onmouseleave =function(){				
+					m2 = new Move(this,0,"top").stop().animation();			
+			}
+			lis[4].onmouseenter =function(){
+//				var that = this;
+//				if(timer){
+//					clearTimeout(timer);
+//				}
+//				if(typeof m2 == "object"){
+//					clearInterval(m2,timer)
+//				}
+//				function temp(){
+					m2 = new Move(this,-10,"top").stop().animation();
+//				}
+//				timer = setTimeout(temp,50);
+					
+			}
+			lis[4].onmouseleave =function(){
+//				var that = this;
+//				if(timer){
+//					clearTimeout(timer);
+//				}
+//				if(typeof m2 == "object"){
+//					clearInterval(m2,timer)
+//				}
+//				function temp2(){
+					m2 = new Move(this,0,"top").stop().animation();
+//				}
+//				timer = setTimeout(temp2,50);	
+					
+			}
+				}else{
+					console.log("不不在当前")
+				}
+			  }
+			}
+			moveAutoplay(box);
+			
+			function getScrollTop() {
+				var sLeft = document.documentElement.scrollLeft == 0 ? document.body.scrollLeft : document.documentElement.scrollLeft;
+				var sTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+				return {
+					top: sTop,
+					left: sLeft
+				}
+			}
+			function getY(obj) {
+				var y = 0;
+				while(obj.tagName != "BODY") {
+					y += obj.offsetTop + obj.offsetParent.clientTop;
+					obj = obj.offsetParent;
+				}
+				return y;
+			}
+			
+			(function() {
+				if(window.innerHeight !== undefined) {
+					client = function() {
+						return {
+							"width": window.innerWidth,
+							"height": window.innerHeight
+						}
+					}
+				} else if(document.compatMode === "CSS1Compat") {
+					client = function() {
+						return {
+							"width": document.documentElement.clientWidth,
+							"height": document.documentElement.clientHeight
+						}
+					}
+
+				} else {
+					client = function() {
+						return {
+							"width": document.body.clientWidth,
+							"height": document.body.clientHeight
+						}
+					}
+				}
+			}());
+		</script>
+	</body>
+
+</html>
